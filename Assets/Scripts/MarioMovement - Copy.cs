@@ -20,9 +20,13 @@ public class MarioMovement : MonoBehaviour
     {
        Horizontal = Input.GetAxisRaw("Horizontal"); 
 
-       if (Input.GetKeyDown(KeyCode.W))
+       if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space))
        {
            Jump();
+       }
+       else if (Input.GetKeyDown(KeyCode.G))
+       {
+            Rigidbody2D.AddForce(Vector2.down * JumpForce);
        }
     }
 
