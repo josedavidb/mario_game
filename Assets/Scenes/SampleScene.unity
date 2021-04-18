@@ -448,50 +448,18 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 966791019}
     m_ColliderPaths:
-    - - X: 1499499932
-        Y: -500040
-      - X: 1499499932
+    - - X: -100500000
+        Y: -50500000
+      - X: 5750499840
+        Y: -50500000
+      - X: 5750499840
         Y: 499999
       - X: -100500000
         Y: 499999
-      - X: -100500000
-        Y: -50500000
-      - X: 3399499932
-        Y: -50500000
-      - X: 3399499932
-        Y: -50500041
-      - X: 3399499991
-        Y: -50500100
-      - X: 5750499881
-        Y: -50500100
-      - X: 5750499940
-        Y: -50500041
-      - X: 5750499940
-        Y: 500040
-      - X: 5750499881
-        Y: 500099
-      - X: 3399499991
-        Y: 500099
-      - X: 3399499932
-        Y: 500040
-      - X: 3399499932
-        Y: 499999
-      - X: 2050500068
-        Y: 499999
-      - X: 2050500068
-        Y: -500040
-      - X: 2050500009
-        Y: -500099
-      - X: 1499499991
-        Y: -500099
   m_CompositePaths:
     m_Paths:
-    - - {x: 575.05, y: -5.05001}
-      - {x: 575.05, y: 0.0500099}
-      - {x: 205.05002, y: 0.0499706}
-      - {x: 205.04997, y: -0.0500099}
-      - {x: 149.95, y: -0.0499746}
-      - {x: 149.94997, y: 0.0499999}
+    - - {x: 575.0499, y: -5.05}
+      - {x: 575.0499, y: 0.0499999}
       - {x: -10.05, y: 0.0499706}
       - {x: -10.049971, y: -5.05}
   m_VertexDistance: 0.0005
@@ -1915,6 +1883,14 @@ PrefabInstance:
     - target: {fileID: 1864932472189978043, guid: 108060ad7e54549458e1808de51336e2, type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7317163083375785811, guid: 108060ad7e54549458e1808de51336e2, type: 3}
+      propertyPath: JumpForce
+      value: 2500
+      objectReference: {fileID: 0}
+    - target: {fileID: 7921526653158049970, guid: 108060ad7e54549458e1808de51336e2, type: 3}
+      propertyPath: m_GravityScale
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 108060ad7e54549458e1808de51336e2, type: 3}
