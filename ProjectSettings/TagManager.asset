@@ -13,14 +13,14 @@ TagManager:
   - UI
   - Background
   - Platform
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Monster
+  - Ground
+  - Wall
+  - Roof
+  - PlayerHead
+  - PlayerBottom
+  - PlayerSides
   - 
   - 
   - 
