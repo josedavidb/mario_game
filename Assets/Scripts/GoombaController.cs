@@ -27,4 +27,11 @@ public class GoombaController : MonoBehaviour
     		transform.Translate(2 * Time.deltaTime * speed, 0, 0);
     	}
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+    	if (collision.gameObject.CompareTag("Ground")){
+    		moveRight = !moveRight;
+    	}
+    }
 }
