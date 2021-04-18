@@ -156,3 +156,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 30
   JumpForce: 10
+  RollForce: 100
