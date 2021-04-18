@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7921526653158049970}
   - component: {fileID: 9096793347343038409}
   - component: {fileID: 7317163083375785811}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 10
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -155,4 +155,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 30
-  JumpForce: 750
+  JumpForce: 10
