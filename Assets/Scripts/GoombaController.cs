@@ -11,7 +11,7 @@ public class GoombaController : MonoBehaviour
 
     void Start()
     {
-
+    	animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
