@@ -48,6 +48,10 @@ public class GoombaController : MonoBehaviour
     		speed = 0;
     		Invoke("Death", 1);
     	}
+    	else if (collision.gameObject.CompareTag("Player"))
+    	{
+    		Debug.Log("Muere Ame");
+    	}
     }
 
     private void Death()
