@@ -43,10 +43,8 @@ public class GoombaController : MonoBehaviour
 
     	if (collision.gameObject.CompareTag("Player") && (transform.position.y + yOffset < collision.transform.position.y))
     	{
-    		isCrushed = true;
-    		animator.SetBool("IsCrushed", isCrushed);
     		speed = 0;
-    		Invoke("Death", 1);
+    		StartCoroutine(Death());
     	}
     	else if (collision.gameObject.CompareTag("Player"))
     	{
@@ -54,8 +52,20 @@ public class GoombaController : MonoBehaviour
     	}
     }
 
-    private void Death()
+
+    private IEnumerator Death()
     {
-    	Destroy(gameObject);
+        animator.Play("Death");
+
+        float counter = 0;
+        float waitTime = 1.0f;
+        
+        while (counter < (waitTime))
+        {
+            counter += Time.deltaTime;
+            yield return null;
+        }
+
+        Destroy(gameObject);
     }
 }

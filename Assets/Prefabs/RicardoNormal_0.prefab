@@ -203,4 +203,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Ame: {fileID: 0}
+  Bullet: {fileID: 1237194796902344114, guid: 8f53974fafae15a4ab0a62f7e36d914f, type: 3}
+  DamageSound: {fileID: 8300000, guid: 59417adf6cd4e0943a4eb61eed30f0a1, type: 3}
   animator: {fileID: 3436047691576879861}
