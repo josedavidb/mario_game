@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Suelo
   - Plataformas 1
+  - Monster
   layers:
   - Default
   - TransparentFX
