@@ -13,6 +13,7 @@ public class RicardoController : MonoBehaviour
     private int speed = 0;
     private bool action = false;
     public Animator animator;
+    private int Health = 3;
 
     void Start()
     {
@@ -43,14 +44,33 @@ public class RicardoController : MonoBehaviour
         if (movement) Movement();
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {	
+    	if (collision.gameObject.CompareTag("Player") && Health == 1 && !action)
+    	{
+    		animator.SetBool("Death", true);
+    		action = true;
+    		speed = 0;
+    		Invoke("Death", 2);
+    	}
+    	if (collision.gameObject.CompareTag("Player") && !action){
+    		Health -= 1;
+    	}
+    }
+
+    private void Death()
+    {
+    	Destroy(gameObject);
+    }
+
     public void Action()
     {
     	action = true;
     	System.Random random = new System.Random();
     	int num = random.Next(1,4);
-    	if (num == 1) Shoot();
-    	else if (num == 2) Hit();
-    	else if (num == 3) Walk();
+    	if (num == 1) Walk();
+    	//else if (num == 2) Shoot();
+    	//else if (num == 3) Hit();
     }
 
     private void Shoot()
@@ -70,7 +90,6 @@ public class RicardoController : MonoBehaviour
     	movement = true;
     	animator.SetBool("Movement", movement);
     	speed = 7;
-    	Debug.Log("Start Movement");
     }
 
     private void Movement()
@@ -88,7 +107,6 @@ public class RicardoController : MonoBehaviour
     	animator.SetBool("Movement", movement);
     	action = false;
     	speed = 0;
-    	Debug.Log("Stop");
     }
 
     private void Hit()
