@@ -15,6 +15,7 @@ public class AmeMovement : MonoBehaviour
     private bool Ground;
     private BoxCollider2D RollHitBox;
     private EdgeCollider2D FloorHitBox;
+    private bool canDie, isDead;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,13 +25,18 @@ public class AmeMovement : MonoBehaviour
         FloorHitBox = transform.Find("FloorHitBox").GetComponent<EdgeCollider2D>();
         RollHitBox.enabled = false;
         FloorHitBox.enabled = false;
+        canDie = true;
+        isDead = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         Horizontal = Input.GetAxisRaw("Horizontal");
-        Ground = Physics2D.Raycast(transform.position, Vector3.down, 1.40f);
+        Ground = Physics2D.Raycast(transform.position, Vector3.down, 1.40f, LayerMask.GetMask("Ground", "Platform"));
+        Debug.DrawRay(transform.position, Vector3.down * 1.40f, Color.red);
+        if (!Ground && !FloorHitBox.enabled && !isDead)
+            FloorHitBox.enabled = true;
 
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space))
         {
@@ -49,8 +55,8 @@ public class AmeMovement : MonoBehaviour
             StartCoroutine(Die());
         }
         Animator.SetBool("Jump", !Ground);
-        if (Ground)
-            FloorHitBox.enabled = false;
+        if (Ground && FloorHitBox.enabled)
+              FloorHitBox.enabled = false;
     }
 
     private void FixedUpdate()
@@ -72,14 +78,14 @@ public class AmeMovement : MonoBehaviour
     private IEnumerator Roll()
     {
         RollHitBox.enabled = true;
-
+        canDie = false;
 
         Animator.Play("ame_spin");
         Rigidbody2D.velocity = new Vector2(Horizontal * Speed * RollForce, Rigidbody2D.velocity.y);
         Animator.SetFloat("Speed", Mathf.Abs(Horizontal * Speed + RollForce));
 
         float counter = 0;
-        float waitTime = Animator.GetCurrentAnimatorStateInfo(0).length;
+        float waitTime = 0.6f;
 
         while (counter < (waitTime))
         {
@@ -88,6 +94,7 @@ public class AmeMovement : MonoBehaviour
         }
 
         RollHitBox.enabled = false;
+        canDie = true;
 
     }
 
@@ -126,6 +133,22 @@ public class AmeMovement : MonoBehaviour
         Animator.Play("Ame_jump");
 
         Rigidbody2D.AddForce(Vector2.up * JumpForce);
-        FloorHitBox.enabled = true;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Monster") && canDie && !isDead)
+        {
+            if(FloorHitBox.enabled && transform.position.y >= collision.transform.position.y)
+            {
+                StartCoroutine(Jump());
+            }
+            else
+            {
+                canDie = false;
+                isDead = true;
+                StartCoroutine(Die());
+            }
+        }
     }
 }

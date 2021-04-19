@@ -39,17 +39,15 @@ public class GoombaController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {	
-    	float yOffset = 1.9f;
-
-    	if (collision.gameObject.CompareTag("Player") && (transform.position.y + yOffset < collision.transform.position.y))
-    	{
-    		speed = 0;
-    		StartCoroutine(Death());
-    	}
-    	else if (collision.gameObject.CompareTag("Player"))
-    	{
-    		Debug.Log("Muere Ame");
-    	}
+        if ((collision.gameObject.transform.name.IndexOf("RollHitbox") >= 0) || (collision.gameObject.transform.name.IndexOf("FloorHitBox") >= 0 && transform.position.y < collision.transform.position.y))
+        {
+            this.tag = "Untagged";
+            transform.Find("GoombaCollider").tag = "Untagged";
+            isCrushed = true;
+            animator.SetBool("IsCrushed", isCrushed);
+            speed = 0;
+            StartCoroutine(Death());
+        }
     }
 
 
