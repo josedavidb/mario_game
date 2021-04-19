@@ -50,10 +50,6 @@ public class AmeMovement : MonoBehaviour
         {
             StartCoroutine(Roll());
         }
-        else if (Input.GetKeyDown(KeyCode.T))
-        {
-            StartCoroutine(Die());
-        }
         Animator.SetBool("Jump", !Ground);
         if (Ground && FloorHitBox.enabled)
               FloorHitBox.enabled = false;
