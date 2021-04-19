@@ -101,6 +101,7 @@ public class AmeMovement : MonoBehaviour
 
     public IEnumerator Die()
     {
+        GameObject.Find("Main Camera").GetComponent<AudioSource>().Stop();
         SoundManager.PlaySound("death");
         Animator.SetTrigger("Dead");
         Rigidbody2D.AddForce(Vector2.up * JumpForce);

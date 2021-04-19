@@ -48,7 +48,7 @@ public class SoundManager : MonoBehaviour
             case "kill":
                 audioSrc.PlayOneShot(kill);
                 break;
-            case "smb_world_clear":
+            case "clear":
                 audioSrc.PlayOneShot(clear);
                 break;
             case "death":
