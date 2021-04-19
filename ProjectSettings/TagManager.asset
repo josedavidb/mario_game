@@ -7,6 +7,7 @@ TagManager:
   - Suelo
   - Plataformas 1
   - Monster
+  - Attack
   layers:
   - Default
   - TransparentFX

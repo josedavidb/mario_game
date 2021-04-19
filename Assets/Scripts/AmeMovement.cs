@@ -13,11 +13,17 @@ public class AmeMovement : MonoBehaviour
     private Rigidbody2D Rigidbody2D;
     private float Horizontal;
     private bool Ground;
+    private BoxCollider2D RollHitBox;
+    private EdgeCollider2D FloorHitBox;
     // Start is called before the first frame update
     void Start()
     {
         Rigidbody2D = GetComponent<Rigidbody2D>();
         Animator = GetComponent<Animator>();
+        RollHitBox = transform.Find("RollHitbox").GetComponent<BoxCollider2D>();
+        FloorHitBox = transform.Find("FloorHitBox").GetComponent<EdgeCollider2D>();
+        RollHitBox.enabled = false;
+        FloorHitBox.enabled = false;
     }
 
     // Update is called once per frame
@@ -34,20 +40,17 @@ public class AmeMovement : MonoBehaviour
                 Ground = false;
             }
         }
-        //else if (Input.GetKeyDown(KeyCode.G))
-        //{
-        //    Rigidbody2D.AddForce(Vector2.down * JumpForce);
-        //}
         else if (Input.GetKeyDown(KeyCode.R) && Ground)
         {
-            Animator.SetTrigger("Attack");
-            Roll();
+            StartCoroutine(Roll());
         }
         else if (Input.GetKeyDown(KeyCode.T))
         {
             StartCoroutine(Die());
         }
         Animator.SetBool("Jump", !Ground);
+        if (Ground)
+            FloorHitBox.enabled = false;
     }
 
     private void FixedUpdate()
@@ -66,21 +69,25 @@ public class AmeMovement : MonoBehaviour
         }
     }
 
-    //private void Jump()
-    //{
-    //    Rigidbody2D.AddForce(Vector2.up * JumpForce);
-    //}
-
-    private void Roll()
+    private IEnumerator Roll()
     {
-        Rigidbody2D.velocity = new Vector2(Horizontal * Speed+ RollForce, Rigidbody2D.velocity.y);
+        RollHitBox.enabled = true;
+
+
+        Animator.Play("ame_spin");
+        Rigidbody2D.velocity = new Vector2(Horizontal * Speed * RollForce, Rigidbody2D.velocity.y);
         Animator.SetFloat("Speed", Mathf.Abs(Horizontal * Speed + RollForce));
-    }
 
-    public void DieAnimation()
-    {
-        //Animator.Play("Ame_dead");
-        //if (Animator.)
+        float counter = 0;
+        float waitTime = Animator.GetCurrentAnimatorStateInfo(0).length;
+
+        while (counter < (waitTime))
+        {
+            counter += Time.deltaTime;
+            yield return null;
+        }
+
+        RollHitBox.enabled = false;
 
     }
 
@@ -106,18 +113,10 @@ public class AmeMovement : MonoBehaviour
     public IEnumerator Jump()
     {
         Animator.Play("Ame_bounce");
-        //Animator.CrossFadeInFixedTime("Ame_bounce", 0.6f);
-
-        //Wait until we enter the current state
-        //while (Animator.GetCurrentAnimatorStateInfo(0).IsName("Ame_bounce"))
-        //{
-        //    yield return null;
-        //}
 
         float counter = 0;
         float waitTime = Animator.GetCurrentAnimatorStateInfo(0).length;
         
-        //Now, Wait until the current state is done playing
         while (counter < (waitTime))
         {
             counter += Time.deltaTime;
@@ -127,6 +126,6 @@ public class AmeMovement : MonoBehaviour
         Animator.Play("Ame_jump");
 
         Rigidbody2D.AddForce(Vector2.up * JumpForce);
-
+        FloorHitBox.enabled = true;
     }
 }
