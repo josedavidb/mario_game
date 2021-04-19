@@ -54,7 +54,7 @@ public class GoombaController : MonoBehaviour
     private IEnumerator Death()
     {
         animator.Play("Death");
-
+        SoundManager.PlaySound("kill");
         float counter = 0;
         float waitTime = 1.0f;
         

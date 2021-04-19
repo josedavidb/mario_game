@@ -80,6 +80,7 @@ public class AmeMovement : MonoBehaviour
         RollHitBox.enabled = true;
         canDie = false;
 
+        SoundManager.PlaySound("roll");
         Animator.Play("ame_spin");
         Rigidbody2D.velocity = new Vector2(Horizontal * Speed * RollForce, Rigidbody2D.velocity.y);
         Animator.SetFloat("Speed", Mathf.Abs(Horizontal * Speed + RollForce));
@@ -100,12 +101,13 @@ public class AmeMovement : MonoBehaviour
 
     public IEnumerator Die()
     {
+        SoundManager.PlaySound("death");
         Animator.SetTrigger("Dead");
         Rigidbody2D.AddForce(Vector2.up * JumpForce);
         GetComponent<CapsuleCollider2D>().enabled = false;
 
         float counter = 0;
-        float waitTime = 2.0f; //Animator.GetCurrentAnimatorStateInfo(0).length;
+        float waitTime = 2.6f; //Animator.GetCurrentAnimatorStateInfo(0).length;
 
         //Now, Wait until the current state is done playing
         while (counter < (waitTime))
@@ -129,7 +131,7 @@ public class AmeMovement : MonoBehaviour
             counter += Time.deltaTime;
             yield return null;
         }
-
+        SoundManager.PlaySound("jump");
         Animator.Play("Ame_jump");
 
         Rigidbody2D.AddForce(Vector2.up * JumpForce);
@@ -137,7 +139,7 @@ public class AmeMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Monster") && canDie && !isDead)
+        if (((collision.gameObject.CompareTag("Monster") && canDie) || collision.gameObject.CompareTag("Bullet")) && !isDead)
         {
             if(FloorHitBox.enabled && transform.position.y >= collision.transform.position.y)
             {
