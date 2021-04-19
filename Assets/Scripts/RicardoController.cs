@@ -7,6 +7,7 @@ using System.Threading;
 public class RicardoController : MonoBehaviour
 {
     public GameObject Ame;
+    public GameObject Bullet;
     private float LastAction;
     private bool moveRight = false;
     private bool movement = false;
@@ -38,7 +39,7 @@ public class RicardoController : MonoBehaviour
 
         if (distance < 30.0f && Time.time > LastAction + 3f && !action)
         {
-        	Invoke("Action", 3);
+        	Invoke("Action", 2);
         	LastAction = Time.time;
         }
         if (movement) Movement();
@@ -48,18 +49,45 @@ public class RicardoController : MonoBehaviour
     {	
     	if (collision.gameObject.CompareTag("Player") && Health == 1 && !action)
     	{
-    		animator.SetBool("Death", true);
     		action = true;
     		speed = 0;
-    		Invoke("Death", 2);
+    		StartCoroutine(Death());
     	}
     	if (collision.gameObject.CompareTag("Player") && !action){
+    		StartCoroutine(Damage());
     		Health -= 1;
     	}
     }
 
-    private void Death()
+    private IEnumerator Damage()
     {
+    	animator.Play("RicardoDamage");
+    	SoundManager.PlaySound("RicardoDamage");
+    	float counter = 0;
+        float waitTime = animator.GetCurrentAnimatorStateInfo(0).length;
+
+        while (counter < (waitTime))
+        {
+            counter += Time.deltaTime;
+            yield return null;
+        }
+
+        animator.Play("RicardoNormal");
+    }
+
+    private IEnumerator Death()
+    {
+    	animator.Play("RicardoDeath");
+
+    	float counter = 0;
+    	float waitTime = 2.0f;
+
+        while (counter < (waitTime))
+        {
+            counter += Time.deltaTime;
+            yield return null;
+        }
+
     	Destroy(gameObject);
     }
 
@@ -67,22 +95,34 @@ public class RicardoController : MonoBehaviour
     {
     	action = true;
     	System.Random random = new System.Random();
-    	int num = random.Next(1,4);
+    	int num = random.Next(1,3);
     	if (num == 1) Walk();
-    	//else if (num == 2) Shoot();
+    	else if (num == 2) Shoot();
+    	else Stop();
     	//else if (num == 3) Hit();
     }
 
     private void Shoot()
     {
-    	Debug.Log("Shoot");
-    	Invoke("Stop", 5);
+    	animator.SetBool("Shoot", true);
+ 		Invoke("BulletShoot", 1);
+    	Invoke("Stop", 2);
+    }
+
+    private void BulletShoot()
+    {
+    	Vector3 direction;
+    	if (transform.localScale.x == 2.5f) direction = Vector3.right;
+    	else direction = Vector3.left;
+
+    	GameObject bullet = Instantiate(Bullet, transform.position + direction * 0.1f, Quaternion.identity);
+    	bullet.GetComponent<BulletController>().SetDirection(direction);
     }
 
     private void Walk()
     {
-    	StartMovement();
-    	Invoke("Stop", 5);
+    	if (Health != 0) StartMovement();
+    	Invoke("Stop", 2);
     }
 
     private void StartMovement()
@@ -105,6 +145,7 @@ public class RicardoController : MonoBehaviour
     {
     	movement = false;
     	animator.SetBool("Movement", movement);
+    	animator.SetBool("Shoot", false);
     	action = false;
     	speed = 0;
     }

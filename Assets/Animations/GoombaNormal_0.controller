@@ -45,7 +45,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 3008d21d8f07ae44a912703e72e31035, type: 2}
+  m_Motion: {fileID: 7400000, guid: 2edc36f9ef049ea4a86c74d7895c4b19, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -59,13 +59,7 @@ AnimatorController:
   m_PrefabAsset: {fileID: 0}
   m_Name: GoombaNormal_0
   serializedVersion: 5
-  m_AnimatorParameters:
-  - m_Name: IsCrushed
-    m_Type: 4
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+  m_AnimatorParameters: []
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -140,8 +134,7 @@ AnimatorState:
   m_Name: GoombaWalk
   m_Speed: 0.3
   m_CycleOffset: 0
-  m_Transitions:
-  - {fileID: -6928190475802102618}
+  m_Transitions: []
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
