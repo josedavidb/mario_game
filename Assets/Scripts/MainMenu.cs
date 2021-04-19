@@ -16,7 +16,6 @@ public class MainMenu : MonoBehaviour
     {
         if (Input.GetKeyDown("return"))
         {
-            print("Test");
             SceneManager.LoadScene("SampleScene");
         }
     }
