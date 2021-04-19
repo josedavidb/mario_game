@@ -51,6 +51,7 @@ public class RicardoController : MonoBehaviour
     	{
     		action = true;
     		speed = 0;
+    		Health -= 1;
     		StartCoroutine(Death());
     	}
     	if (collision.gameObject.CompareTag("Player") && !action){
@@ -78,7 +79,7 @@ public class RicardoController : MonoBehaviour
     private IEnumerator Death()
     {
     	animator.Play("RicardoDeath");
-
+    	SoundManager.PlaySound("RicardoDead");
     	float counter = 0;
     	float waitTime = 2.0f;
 
@@ -104,8 +105,11 @@ public class RicardoController : MonoBehaviour
 
     private void Shoot()
     {
-    	animator.SetBool("Shoot", true);
- 		Invoke("BulletShoot", 1);
+    	if (Health != 0){
+    		SoundManager.PlaySound("RicardoShoot");
+    		animator.SetBool("Shoot", true);
+ 			Invoke("BulletShoot", 1);
+    	}
     	Invoke("Stop", 2);
     }
 
@@ -127,6 +131,7 @@ public class RicardoController : MonoBehaviour
 
     private void StartMovement()
     {
+    	SoundManager.PlaySound("RicardoWalk");
     	movement = true;
     	animator.SetBool("Movement", movement);
     	speed = 7;

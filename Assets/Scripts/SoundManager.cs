@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    public static AudioClip RicardoDamage;
+    public static AudioClip RicardoDamage, RicardoDead, RicardoShoot, RicardoWalk;
     static AudioSource audioSrc;
 
     void Start()
     {
-        RicardoDamage = Sounds.Load<AudioClip>("RicardoDamage");
+        RicardoDamage = Resources.Load<AudioClip>("RicardoDamage");
+        RicardoDead = Resources.Load<AudioClip>("RicardoDead");
+        RicardoShoot = Resources.Load<AudioClip>("RicardoShoot");
+        RicardoWalk = Resources.Load<AudioClip>("RicardoWalk");
 
         audioSrc = GetComponent<AudioSource>();
     }
@@ -26,6 +29,15 @@ public class SoundManager : MonoBehaviour
     		case "RicardoDamage":
     			audioSrc.PlayOneShot(RicardoDamage);
     			break;
+    		case "RicardoDead":
+    			audioSrc.PlayOneShot(RicardoDead);
+    			break;
+    		case "RicardoShoot":
+    			audioSrc.PlayOneShot(RicardoShoot);
+    			break;
+    		case "RicardoWalk":
+    			audioSrc.PlayOneShot(RicardoWalk);
+    			break;	
     	}
     }
 }
