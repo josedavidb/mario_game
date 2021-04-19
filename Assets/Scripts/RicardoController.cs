@@ -47,14 +47,16 @@ public class RicardoController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {	
-    	if (collision.gameObject.CompareTag("Player") && Health == 1 && !action)
+    	if (collision.gameObject.CompareTag("Attack") && Health == 1 && !action)
     	{
     		action = true;
     		speed = 0;
     		Health -= 1;
-    		StartCoroutine(Death());
+            this.tag = "Untagged";
+            transform.Find("RicardoCollider").tag = "Untagged";
+            StartCoroutine(Death());
     	}
-    	if (collision.gameObject.CompareTag("Player") && !action){
+    	if (collision.gameObject.CompareTag("Attack") && !action){
     		StartCoroutine(Damage());
     		Health -= 1;
     	}

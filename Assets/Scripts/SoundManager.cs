@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    public static AudioClip RicardoDamage, RicardoDead, RicardoShoot, RicardoWalk;
+    public static AudioClip RicardoDamage, RicardoDead, RicardoShoot, RicardoWalk, AmeJump, kill, clear, death, roll;
     static AudioSource audioSrc;
 
     void Start()
@@ -13,7 +13,11 @@ public class SoundManager : MonoBehaviour
         RicardoDead = Resources.Load<AudioClip>("RicardoDead");
         RicardoShoot = Resources.Load<AudioClip>("RicardoShoot");
         RicardoWalk = Resources.Load<AudioClip>("RicardoWalk");
-
+        AmeJump = Resources.Load<AudioClip>("smb_jump-small");
+        kill = Resources.Load<AudioClip>("kill");
+        clear = Resources.Load<AudioClip>("smb_world_clear");
+        death = Resources.Load<AudioClip>("smb_mariodie");
+        roll = Resources.Load<AudioClip>("smb_bump");
         audioSrc = GetComponent<AudioSource>();
     }
 
@@ -37,7 +41,22 @@ public class SoundManager : MonoBehaviour
     			break;
     		case "RicardoWalk":
     			audioSrc.PlayOneShot(RicardoWalk);
-    			break;	
-    	}
+    			break;
+            case "jump":
+                audioSrc.PlayOneShot(AmeJump);
+                break;
+            case "kill":
+                audioSrc.PlayOneShot(kill);
+                break;
+            case "smb_world_clear":
+                audioSrc.PlayOneShot(clear);
+                break;
+            case "death":
+                audioSrc.PlayOneShot(death);
+                break;
+            case "roll":
+                audioSrc.PlayOneShot(roll);
+                break;
+        }
     }
 }
